@@ -17,7 +17,7 @@ Differences from PC version for 0.1.0 (compared to 0.4.0 PC)
 Known bugs for alpha 0.1.0:
 -Special attack to ask politely but firmly to leave button text not displaying properly
 
-Major Update Version: alpha 0.2.0 Android:
-+Added Oculus Quest 2 support
+Minor Update Version: alpha 0.1.1 Android:
+-Fixed bug where enemies show up as NAH
 -Fixed bug where Enemies show negative values when they die
 -Fixed bug where you show negative values when you die
