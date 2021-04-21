@@ -1,0 +1,3 @@
+rootProject.name='Big Bois The Game'
+include ':app'
+include ':levelup'
