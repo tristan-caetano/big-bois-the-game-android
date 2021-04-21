@@ -1,0 +1,23 @@
+Major release: Version alpha 0.1.0:
++Game is created
++That's it
+
+Differences from PC version for 0.1.0 (compared to 0.4.0 PC)
++It’s on android
++Saving is automatic
+-No settings button on main menu
+-No suicide button when in battle
++Running makes you lose CB
++Special Attacks use less stamina
++Shop shows complete inventory instead of just CB
++Experience points says EXP
++Some dialogue and text is different
++Titles and values are distinct from one another
+
+Known bugs for alpha 0.1.0:
+-Special attack to ask politely but firmly to leave button text not displaying properly
+
+Major Update Version: alpha 0.2.0 Android:
++Added Oculus Quest 2 support
+-Fixed bug where Enemies show negative values when they die
+-Fixed bug where you show negative values when you die
