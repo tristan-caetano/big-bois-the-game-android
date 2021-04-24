@@ -4,8 +4,8 @@ import java.util.Random;
 
 public class fistClass {
 
-    void getDesc(){
-        System.out.println("Dude why are you looking up a description about your fists? They are used for bonking bois, that's it.");
+    String getDesc(){
+        return ("Dude why are you looking up a description about your fists? They are used for bonking bois, that's it.");
     }
 
     int getDamage(int tier, int level){

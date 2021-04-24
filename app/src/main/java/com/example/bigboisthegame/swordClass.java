@@ -3,8 +3,8 @@ package com.example.bigboisthegame;
 import java.util.Random;
 
 public class swordClass {
-    void getDesc(){
-        System.out.println("The sword boi gives you no tactical advantage whatsoever, but your minumum damage per attack is now 50.");
+    String  getDesc(){
+        return ("The sword boi gives you no tactical advantage whatsoever, but your minumum damage per attack is now 50.");
     }
 
     int getDamage(int tier, int level){

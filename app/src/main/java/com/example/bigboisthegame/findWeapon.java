@@ -5,12 +5,14 @@ public class findWeapon{
     private String weapon;
     private int level;
 
+    //Constructor to setup object
     findWeapon(int tier, String weapon, int level){
         this.tier = tier;
         this.weapon = weapon;
         this.level = level;
     }
 
+    //Returns the damage for the weapon
     int findDmg(){
         int damage = 0;
 
@@ -28,5 +30,25 @@ public class findWeapon{
         }
 
         return damage;
+    }
+
+    //Returns the description of the weapon
+    String findDesc(){
+        String desc = "ERROR: No description found;";
+
+        switch(weapon){
+            case "fist":{
+                fistClass fc = new fistClass();
+                desc = fc.getDesc();
+                break;
+            }
+            case "sword":{
+                swordClass sc = new swordClass();
+                desc = sc.getDesc();
+                break;
+            }
+        }
+
+        return desc;
     }
 }
