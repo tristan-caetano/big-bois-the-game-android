@@ -24,3 +24,6 @@ Minor Update Version: alpha 0.1.1 Android:
 
 Minor Update Version: alpha 0.1.2 Android:
 +Changed color pallet to black and white (will change in the future) 
++Added Settings button
++Added Settings menu (WIP)
++Added some attributes to weapon system (WIP)
