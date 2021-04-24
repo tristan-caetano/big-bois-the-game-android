@@ -21,3 +21,6 @@ Minor Update Version: alpha 0.1.1 Android:
 -Fixed bug where enemies show up as NAH
 -Fixed bug where Enemies show negative values when they die
 -Fixed bug where you show negative values when you die
+
+Minor Update Version: alpha 0.1.2 Android:
++Changed color pallet to black and white (will change in the future) 
