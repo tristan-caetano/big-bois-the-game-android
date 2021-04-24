@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6055FF"
+    android:background="#000000"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="341dp"
         android:layout_height="314dp"
-        android:background="#5055FF"
+        android:background="#FFFFFF"
         android:fontFamily="sans-serif-thin"
         android:text="Begin"
         android:textColor="#000000"
@@ -29,6 +29,7 @@
         android:layout_height="350dp"
         android:fontFamily="sans-serif-thin"
         android:text="\n   Big Bois:\n The Game"
+        android:textColor="#FFFFFF"
         android:textSize="70sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -42,7 +43,7 @@
         android:id="@+id/textView2"
         android:layout_width="188dp"
         android:layout_height="31dp"
-        android:text="android alpha 0.1.1"
+        android:text="android alpha 0.1.2"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"

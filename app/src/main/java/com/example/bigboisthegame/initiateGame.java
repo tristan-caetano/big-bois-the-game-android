@@ -14,8 +14,10 @@ import java.util.Random;
 public class initiateGame extends AppCompatActivity {
 
     //Player Variables
-    int health, stamina, counter, attack, ehealthTemp, level, levelTracker, xpMilestone, numStaminaChonk, staminaChonkAmt, chance, numHealthPacks, healthPackAmt, healthPackDropChance, pp, coins, tier;
-    double levelMultiplier;
+    int health, stamina, counter, attack, ehealthTemp, level, levelTracker, xpMilestone,
+            numStaminaChonk, staminaChonkAmt, chance, numHealthPacks, healthPackAmt, pp, coins,
+            tier;
+    double levelMultiplier, doubleLevel;
     boolean bossLevel;
     String weapon;
 
@@ -23,7 +25,7 @@ public class initiateGame extends AppCompatActivity {
     int enemyHealth, maxEnemyHealth, maxEnemyAtt, bossChance, initHealth;
     String enemy;
 
-    //Game Variables
+    //Initializing static strings for saved values
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String HEALTH = "health";
     public static final String STAMINA = "stamina";
@@ -40,7 +42,6 @@ public class initiateGame extends AppCompatActivity {
     public static final String WEAPON = "weapon";
     public static final String TIER = "tier";
     Random rand = new Random();
-    double doubleLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,8 @@ public class initiateGame extends AppCompatActivity {
         startBattle();
     }
 
-    public void playerSetup(){
+    //Sets Default Values for Player
+    public void playerSetup() {
         attack = 100;
         maxEnemyAtt = 100;
         maxEnemyHealth = 1000;
@@ -64,17 +66,7 @@ public class initiateGame extends AppCompatActivity {
 
     public void startBattle() {
 
-        TextView healthT = (TextView) findViewById(R.id.currentHealth2);
-        TextView staminaT = (TextView) findViewById(R.id.currentStamina2);
-        TextView healthText = (TextView) findViewById(R.id.healthText2);
-        TextView staminaText = (TextView) findViewById(R.id.staminaText2);
-        TextView enemyHealthT = (TextView) findViewById(R.id.enemyHealth);
-        TextView enemyName = (TextView) findViewById(R.id.enemyName);
-        TextView fText = (TextView) findViewById(R.id.fightText);
-        TextView levelT = (TextView) findViewById(R.id.currentLevel);
-        TextView expT = (TextView) findViewById(R.id.currentExp);
-        TextView tierText = (TextView) findViewById(R.id.currentTier);
-
+        //Setting on screen buttons
         Button fight = (Button) findViewById(R.id.fightButton);
         Button specialB = (Button) findViewById(R.id.specialButton);
         Button dronkB = (Button) findViewById(R.id.dronkButton);
@@ -84,68 +76,70 @@ public class initiateGame extends AppCompatActivity {
         Button blockB = (Button) findViewById(R.id.blockButton);
         //Button suicideB = (Button) findViewById(R.id.suicideButton);
 
+        //Setting value for amount of xp that needs to be reached before leveling up
         xpMilestone = (100 * (1 + level));
 
-            playerSetup();
+        //Calling method to setup default values
+        playerSetup();
 
-            SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            System.out.println(sharedPref.getString(ENEMY, "NAH"));
-            System.out.println(sharedPref.getInt(EHEALTH, 69420));
-            enemy = sharedPref.getString(ENEMY, "NAH");
-            enemyHealth = sharedPref.getInt(EHEALTH, 500);
+        //Initializing for loading variables
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
 
-            if(enemy.equals("NAH")){
-                enemy = getEnemyName();
-                System.out.println("Getting New Enemy Name");
+        //Getting stored values for current enemy and enemy health
+        System.out.println(sharedPref.getString(ENEMY, "NAH"));
+        System.out.println(sharedPref.getInt(EHEALTH, 69420));
+        enemy = sharedPref.getString(ENEMY, "NAH");
+        enemyHealth = sharedPref.getInt(EHEALTH, 500);
+
+        //If the game fails to properly name an enemy, the function to do so is called again
+        if (enemy.equals("NAH")) {
+            enemy = getEnemyName();
+            System.out.println("Getting New Enemy Name");
+        }
+
+        System.out.println("ENEMY: " + enemy);
+        //Displaying greeting text
+        TextView fText = (TextView) findViewById(R.id.fightText);
+        fText.setText("Boi, " + enemy + "'s got " + Integer.toString(enemyHealth) + " health left. \nWhat you doin now fam?");
+
+        updateDisplay();
+
+        //Calls functions depending on the button pressed
+        fight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attack();
+                save();
+
             }
+        });
 
-            fText.setText("Boi, " + enemy + "'s got " + Integer.toString(enemyHealth) + " health left. \nWhat you doin now fam?");
+        blockB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                block();
+                save();
+            }
+        });
 
-            enemyName.setText(enemy + "'s Health: ");
-            healthText.setText("Health Bois: ");
-            staminaText.setText("Stamina Bois: ");
-            healthT.setText(Integer.toString(health));
-            staminaT.setText(Integer.toString(stamina));
-            levelT.setText("Level: " + Integer.toString(level));
-            tierText.setText("Tier: " + Integer.toString(tier));
-            expT.setText("EXP: " + Integer.toString(levelTracker) + " / " + Integer.toString(((level + 1) * 100)));
-            enemyHealthT.setText(Integer.toString(enemyHealth));
+        inventoryB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save();
+                Intent startIntent = new Intent(getApplicationContext(), inventoryScreen.class);
+                startActivity(startIntent);
+            }
+        });
 
-            fight.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    attack();
-                    save();
-
-                }
-            });
-
-            blockB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    block();
-                    save();
-                }
-            });
-
-            inventoryB.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    save();
-                    Intent startIntent = new Intent(getApplicationContext(), inventoryScreen.class);
-                    startActivity(startIntent);
-                }
-            });
-
-             dronkB.setOnClickListener(new View.OnClickListener() {
+        dronkB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 healthPackInstance();
                 save();
-                 }
-             });
+            }
+        });
 
-             cronchB.setOnClickListener(new View.OnClickListener() {
+        cronchB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 staminaChonkInstance();
@@ -192,9 +186,38 @@ public class initiateGame extends AppCompatActivity {
             }
         });
 
-        }
+    }
 
-    String getEnemyName(){
+    //Function that updates all current values on screen
+    public void updateDisplay(){
+
+        //Setting the text boxes on screen
+        TextView healthT = (TextView) findViewById(R.id.currentHealth2);
+        TextView staminaT = (TextView) findViewById(R.id.currentStamina2);
+        TextView healthText = (TextView) findViewById(R.id.healthText2);
+        TextView staminaText = (TextView) findViewById(R.id.staminaText2);
+        TextView enemyHealthT = (TextView) findViewById(R.id.enemyHealth);
+        TextView enemyName = (TextView) findViewById(R.id.enemyName);
+        TextView levelT = (TextView) findViewById(R.id.currentLevel);
+        TextView expT = (TextView) findViewById(R.id.currentExp);
+        TextView tierText = (TextView) findViewById(R.id.currentTier);
+
+        //Displaying all relevant on screen value
+        healthText.setText("Health Bois: ");
+        staminaText.setText("Stamina Bois: ");
+        healthT.setText(Integer.toString(health));
+        staminaT.setText(Integer.toString(stamina));
+        levelT.setText("Level: " + Integer.toString(level));
+        tierText.setText("Tier: " + Integer.toString(tier));
+        expT.setText("EXP: " + Integer.toString(levelTracker) + " / " + Integer.toString(((level + 1) * 100)));
+        enemyHealthT.setText(Integer.toString(enemyHealth));
+        enemyName.setText(enemy + "'s Health: ");
+
+    }
+
+    //Function that gets an enemy name whether it be a boss or not
+    //Returns the string of the enemy name
+    String getEnemyName() {
 
         bossLevel = false;
 
@@ -204,11 +227,11 @@ public class initiateGame extends AppCompatActivity {
             if (rand.nextInt(100) < (bossChance * level)) {
                 bossLevel = true;
                 System.out.println("IsBoss");
-                int[] bossHealthChance = { 2000, 3000, 4000 };
+                int[] bossHealthChance = {2000, 3000, 4000};
                 int bossHealth = bossHealthChance[rand.nextInt(bossHealthChance.length)];
 
-                String[] enemies = { "The Big Boi", "Ultimate Salad", "PoopyJuice", "Mononucleosis",
-                        "The Inhibition", "Big Sad", "Viscus Fart Chamber", "COVID-19", "Karen" };
+                String[] enemies = {"The Big Boi", "Ultimate Salad", "PoopyJuice", "Mononucleosis",
+                        "The Inhibition", "Big Sad", "Viscus Fart Chamber", "COVID-19", "Karen"};
                 enemy = enemies[rand.nextInt(enemies.length)];
 
                 enemyHealth = bossHealth;
@@ -216,13 +239,13 @@ public class initiateGame extends AppCompatActivity {
 
         }
 
-        if(!bossLevel){
+        if (!bossLevel) {
 
             System.out.println("Assigning enemy name.");
 
-            String[] enemies = { "Prime Time Bad Guy", "Normie", "Big Salad", "Lowly Salad", "Bad Crouton",
+            String[] enemies = {"Prime Time Bad Guy", "Normie", "Big Salad", "Lowly Salad", "Bad Crouton",
                     "Apple Fanboy", "Long Boi", "Sad Boi", "Orange Juice", "Bad Larry", "Big Kidney Stone",
-                    "Fart Chamber" };
+                    "Fart Chamber"};
             enemy = (enemies[rand.nextInt(enemies.length)]);
             enemyHealth = rand.nextInt(maxEnemyHealth);
 
@@ -250,18 +273,16 @@ public class initiateGame extends AppCompatActivity {
 
         System.out.println(sharedPref.getString(ENEMY, "NA"));
 
+        save();
+
         return enemy;
     }
 
+    //**ALL FUNCTIONS THAT ARE ATTACK FUNCTIONS ALSO HAVE THE ENEMY ATTACK YOU BACK**
 
-    void attack(){
+    //Function that does the standard attack for the player
+    void attack() {
 
-        TextView healthT = (TextView) findViewById(R.id.currentHealth2);
-        TextView staminaT = (TextView) findViewById(R.id.currentStamina2);
-        TextView healthText = (TextView) findViewById(R.id.healthText2);
-        TextView staminaText = (TextView) findViewById(R.id.staminaText2);
-        TextView enemyHealthT = (TextView) findViewById(R.id.enemyHealth);
-        TextView enemyName = (TextView) findViewById(R.id.enemyName);
         TextView fText = (TextView) findViewById(R.id.fightText);
 
         Button fight = (Button) findViewById(R.id.fightButton);
@@ -298,13 +319,10 @@ public class initiateGame extends AppCompatActivity {
 
             }
 
-            staminaT.setText(Integer.toString(stamina));
-
             fText.setText("Boi, you hit " + enemy + " for " + damageDealt + " damage,\nbig yeet. " + enemy
                     + " also hit you for " + damageTaken + ", oof. \nWhat's poppin next?");
 
-            enemyHealthT.setText(Integer.toString(enemyHealth));
-            healthT.setText(Integer.toString(health));
+            updateDisplay();
 
         } else {
 
@@ -329,14 +347,9 @@ public class initiateGame extends AppCompatActivity {
         }
     }
 
+    //Function that blocks a random amount of damage from the enemy, and restores a random amount of stamina
     public void block() {
 
-        TextView healthT = (TextView) findViewById(R.id.currentHealth2);
-        TextView staminaT = (TextView) findViewById(R.id.currentStamina2);
-        TextView healthText = (TextView) findViewById(R.id.healthText2);
-        TextView staminaText = (TextView) findViewById(R.id.staminaText2);
-        TextView enemyHealthT = (TextView) findViewById(R.id.enemyHealth);
-        TextView enemyName = (TextView) findViewById(R.id.enemyName);
         TextView fText = (TextView) findViewById(R.id.fightText);
 
         Button fight = (Button) findViewById(R.id.fightButton);
@@ -361,11 +374,9 @@ public class initiateGame extends AppCompatActivity {
             stamina = 100;
         }
 
-        healthT.setText(Integer.toString(health));
-        staminaT.setText(Integer.toString(stamina));
-
         fText.setText("You blocked " + Math.round(bChance) + "% of " + enemy + "'s attack. \nYou took "
                 + Math.round(blockedDamage) + " damage.");
+        updateDisplay();
 
         System.out.println("NOT DEAD: " + health);
 
@@ -386,7 +397,8 @@ public class initiateGame extends AppCompatActivity {
         }
     }
 
-    public void save(){
+    //Saving all variables to Shared Prefs
+    public void save() {
         SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(HEALTH, health);
@@ -397,7 +409,6 @@ public class initiateGame extends AppCompatActivity {
         editor.putInt(COUNTER, counter);
         editor.putInt(LEVEL, level);
         editor.putInt(COINS, coins);
-
         editor.putInt(TRACKER, levelTracker);
         editor.putString(ENEMY, enemy);
         editor.putInt(EHEALTH, enemyHealth);
@@ -408,7 +419,8 @@ public class initiateGame extends AppCompatActivity {
 
     }
 
-    public void load(){
+    //Loading all values from shared prefs
+    public void load() {
         SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         health = sharedPref.getInt(HEALTH, 1000);
         stamina = sharedPref.getInt(STAMINA, 100);
@@ -425,6 +437,7 @@ public class initiateGame extends AppCompatActivity {
 
     }
 
+    //Function for taking a health pack to restore health
     public void healthPackInstance() {
 
         TextView healthText = (TextView) findViewById(R.id.currentHealth2);
@@ -449,6 +462,7 @@ public class initiateGame extends AppCompatActivity {
 
     }
 
+    //Function for taking a stamina chonk to restore stamina
     public void staminaChonkInstance() {
 
         TextView staminaText = (TextView) findViewById(R.id.currentStamina2);
@@ -456,6 +470,7 @@ public class initiateGame extends AppCompatActivity {
 
         if (stamina >= 100) {
             fText.setText("Your stamina is hecking maxed!");
+
         } else if (numStaminaChonk > 0) {
             stamina += staminaChonkAmt;
             numStaminaChonk--;
@@ -463,15 +478,21 @@ public class initiateGame extends AppCompatActivity {
                     + Integer.toString(numStaminaChonk) + " left.");
             if (stamina >= 100) {
                 stamina = 100;
+
             }
         } else if (numStaminaChonk <= 0) {
             fText.setText("You cronched the all the stamina chonks!");
+
         }
 
         staminaText.setText(Integer.toString(stamina));
         save();
 
     }
+
+    //Does not allow player to hit return on device to go to previous screen from here
+    //IE: locked in battle
+
     @Override
     public void onBackPressed() {
 

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class levelUp extends AppCompatActivity {
 
-    int health, stamina, level, levelTracker, numHealthPacks, pp, tier;
+    int health, stamina, level, levelTracker, numHealthPacks, pp, tier, leftOver;
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String HEALTH = "health";
@@ -21,6 +21,7 @@ public class levelUp extends AppCompatActivity {
     public static final String PP = "pp";
     public static final String TRACKER = "tracker";
     public static final String TIER = "tier";
+    public static final String LEFTOVER = "leftOver";
 
 
     @Override
@@ -39,12 +40,18 @@ public class levelUp extends AppCompatActivity {
 
         Button stayB = (Button) findViewById(R.id.stayButton);
 
+
+        System.out.println("LevelTracker: " + levelTracker);
+        leftOver = levelTracker - ((level + 1) * 100);
+        System.out.println("LEFT OVER XP: " + leftOver);
+
         if (level < 10) {
             levelTracker = 0;
             level++;
             lText.setText("Aye guy, you leveled up! \nHecken real nice!\nYou are now level " + Integer.toString(level) + ".");
 
         } else if (level > 9) {
+            levelTracker = 0;
             tier++;
             lText.setText("So, you think you beat the game, huh.\n So, for the sake of extending playtime,\n let's reset your level,\n but lets increase your tier!");
             level = 0;
@@ -58,6 +65,11 @@ public class levelUp extends AppCompatActivity {
         } else {
             stamina = 100;
         }
+
+        levelTracker += leftOver;
+        leftOver = 0;
+
+        System.out.println("NEW LevelTracker: " + levelTracker);
 
         save();
 

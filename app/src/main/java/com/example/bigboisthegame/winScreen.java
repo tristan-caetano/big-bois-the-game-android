@@ -13,7 +13,9 @@ import java.util.Random;
 
 public class winScreen extends AppCompatActivity {
 
-    int health, stamina, counter, multiplier, attack, ehealthTemp, level, levelTracker, xpMilestone, numStaminaChonk, staminaChonkAmt, chance, numHealthPacks, healthPackAmt, healthPackDropChance, pp, coins, initHealth, tier;
+    int health, stamina, counter, multiplier, attack, ehealthTemp, level, levelTracker, xpMilestone,
+            numStaminaChonk, staminaChonkAmt, chance, numHealthPacks, healthPackAmt,
+            healthPackDropChance, pp, coins, initHealth, tier, leftOver;
     double levelMultiplier;
     String enemy;
 
@@ -32,6 +34,7 @@ public class winScreen extends AppCompatActivity {
     public static final String ENEMY = "enemy";
     public static final String IHEALTH = "iHealth";
     public static final String TIER = "tier";
+    public static final String LEFTOVER = "leftOver";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,8 @@ public class winScreen extends AppCompatActivity {
                     + " health pack(s) \nand " + Integer.toString(numStaminaChonk) + " stamina chonk(s).\nYou got "
                     + Integer.toString(Math.abs(ehealthTemp)) + " CB and 5 more pp!\nYou have killed " + Integer.toString(counter) + " enemie(s) so far.");
             pp += 5;
-        } else {
+        }
+        else {
             winText.setText("Thank god. " + enemy + " has passed the HECK away.\nYou got " + Math.abs(ehealthTemp)
                     + " CB!\nYou have killed " + counter + " enemie(s) so far and got 5 more pp!.");
             System.out.println("");
@@ -85,6 +89,7 @@ public class winScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (levelTracker > ((level + 1) * 100)) {
+                    leftOver = levelTracker - ((level + 1) * 100);
                     System.out.println("Level TEST: " + Integer.toString(level));
                     System.out.println("EXP TEST: " + Integer.toString(levelTracker) + " / " + Integer.toString(((level + 1) * 100)));
                     Intent startIntent = new Intent(getApplicationContext(), levelUp.class);
@@ -112,6 +117,7 @@ public class winScreen extends AppCompatActivity {
         editor.putInt(COINS, coins);
         editor.putInt(TRACKER, levelTracker);
         editor.putInt(IHEALTH, initHealth);
+        editor.putInt(LEFTOVER, leftOver);
         editor.commit();
 
     }

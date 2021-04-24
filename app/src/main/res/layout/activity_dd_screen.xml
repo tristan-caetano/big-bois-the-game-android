@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6055FF"
+    android:background="#000000"
     tools:context=".ddScreen">
 
     <Button
         android:id="@+id/stayButton4"
         android:layout_width="376dp"
         android:layout_height="150dp"
-        android:background="#5055FF"
+        android:background="#FFFFFF"
+        android:fontFamily="sans-serif-thin"
         android:text="Well, that sucks. Guess I'll be a good sport and play again."
         android:textColor="#FF0000"
         android:textSize="25sp"
@@ -26,7 +27,8 @@
         android:id="@+id/leaveButton2"
         android:layout_width="376dp"
         android:layout_height="150dp"
-        android:background="#5055FF"
+        android:background="#FFFFFF"
+        android:fontFamily="sans-serif-thin"
         android:text="Well, that sucks. Guess I'll be a poopyjuice and quit."
         android:textColor="#0014A6"
         android:textSize="25sp"

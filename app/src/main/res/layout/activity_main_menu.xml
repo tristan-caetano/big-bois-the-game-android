@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6055FF"
+    android:background="#000000"
     tools:context=".mainMenu">
 
     <TextView
@@ -116,7 +116,8 @@
         android:id="@+id/battleButton"
         android:layout_width="190dp"
         android:layout_height="150dp"
-        android:background="#5055FF"
+        android:background="#FFFFFF"
+        android:fontFamily="sans-serif-thin"
         android:text="Battle"
         android:textColor="#FF0000"
         android:textSize="50sp"
@@ -131,7 +132,8 @@
         android:id="@+id/shopButton"
         android:layout_width="190dp"
         android:layout_height="150dp"
-        android:background="#5055FF"
+        android:background="#FFFFFF"
+        android:fontFamily="sans-serif-thin"
         android:text="Shop"
         android:textColor="#CC9902"
         android:textSize="50sp"
