@@ -27,3 +27,10 @@ Minor Update Version: alpha 0.1.2 Android:
 +Added Settings button
 +Added Settings menu (WIP)
 +Added some attributes to weapon system (WIP)
+
+Minor Update Version: alpha 0.1.3 Android:
++Revamped entire look of the game with new text and custom logos (WIP)
++Title screen has music
++Added sword, shield, and axe into the game that have their own attributes and can be bought in the store
++When these aspects are finished, I will release update 0.2.0
+
