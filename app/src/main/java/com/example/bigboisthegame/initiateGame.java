@@ -2,6 +2,7 @@ package com.example.bigboisthegame;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,9 @@ public class initiateGame extends AppCompatActivity {
     double levelMultiplier, doubleLevel;
     boolean bossLevel;
     String weapon;
+
+    //Music Player
+    MediaPlayer player;
 
     //Enemy Variables
     int enemyHealth, maxEnemyHealth, maxEnemyAtt, bossChance, initHealth;
@@ -47,6 +51,7 @@ public class initiateGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initiate_game);
+
         startBattle();
     }
 
@@ -211,7 +216,7 @@ public class initiateGame extends AppCompatActivity {
         tierText.setText("Tier: " + Integer.toString(tier));
         expT.setText("EXP: " + Integer.toString(levelTracker) + " / " + Integer.toString(((level + 1) * 100)));
         enemyHealthT.setText(Integer.toString(enemyHealth));
-        enemyName.setText(enemy + "'s Health: ");
+        enemyName.setText(enemy + "'s Health:");
 
     }
 
@@ -282,6 +287,8 @@ public class initiateGame extends AppCompatActivity {
 
     //Function that does the standard attack for the player
     void attack() {
+        String playerAtt = "";
+        String enemyAtt = "";
 
         TextView fText = (TextView) findViewById(R.id.fightText);
 
@@ -296,31 +303,51 @@ public class initiateGame extends AppCompatActivity {
 
         if (stamina > 10) {
             doubleLevel = level;
-
-            //findWeapon fw = new findWeapon(tier, weapon, level);
+            int damageDealt;
 
             //Player's Turn
-            levelMultiplier = ((doubleLevel / 10) + 1);
-            double doubleDamageDealt = ((rand.nextInt(attack) * levelMultiplier));
-            int damageDealt = (int) doubleDamageDealt;
-            System.out.println(damageDealt + " / " + levelMultiplier + "/" + doubleLevel);
-            System.out.println(level + "  " + levelMultiplier);
+            findWeapon fw = new findWeapon(tier, weapon, level);
+            damageDealt = fw.findDmg();
+
+            int damageTaken = rand.nextInt(maxEnemyAtt);
 
             //Enemy Turn
-            int damageTaken = rand.nextInt(maxEnemyAtt);
+            if(weapon.equals("shield")){
+                System.out.println("HAS SHIELD");
+                if(rand.nextInt(10) == 0) {
+                    System.out.println("BLOCKED");
+                    damageTaken = 0;
+                }
+            }
             health -= damageTaken;
             enemyHealth -= damageDealt;
+
+            if(enemyHealth < 0){
+                enemyHealth = 0;
+            }
+
             stamina -= (damageDealt / 10);
             save();
 
             if (stamina < 0) {
-
                 stamina = 0;
-
             }
 
-            fText.setText("Boi, you hit " + enemy + " for " + damageDealt + " damage,\nbig yeet. " + enemy
-                    + " also hit you for " + damageTaken + ", oof. \nWhat's poppin next?");
+            if(damageDealt > 0){
+                playerAtt = "Boi, you hit " + enemy + " for " + damageDealt + " damage, big yeet. ";
+            } else if(damageDealt == 0){
+                playerAtt = "Bruh, you missed, not epic. ";
+            }
+
+            if(damageTaken > 0){
+                enemyAtt = enemy + " also hit you for " + damageTaken + ", oof. What's poppin next?";
+            } else if(damageTaken == 0 && weapon.equals("shield")){
+                enemyAtt = "You blocked " + enemy + "'s attack! Very Epic.";
+            } else if(damageTaken == 0 && !(weapon.equals("shield"))){
+                enemyAtt = enemy + "'s attack missed! Very cool.";
+            }
+
+            fText.setText(playerAtt + enemyAtt);
 
             updateDisplay();
 

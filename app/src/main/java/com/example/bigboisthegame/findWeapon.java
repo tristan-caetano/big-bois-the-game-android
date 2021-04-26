@@ -22,9 +22,22 @@ public class findWeapon{
                 damage = fc.getDamage(tier, level);
                 break;
             }
+
             case "sword":{
                 swordClass sc = new swordClass();
                 damage = sc.getDamage(tier, level);
+                break;
+            }
+
+            case "shield":{
+                shieldClass sc = new shieldClass();
+                damage = sc.getDamage(tier, level);
+                break;
+            }
+
+            case "axe":{
+                axeClass ac = new axeClass();
+                damage = ac.getDamage(tier, level);
                 break;
             }
         }
@@ -42,9 +55,22 @@ public class findWeapon{
                 desc = fc.getDesc();
                 break;
             }
+
             case "sword":{
                 swordClass sc = new swordClass();
                 desc = sc.getDesc();
+                break;
+            }
+
+            case "shield":{
+                shieldClass sc = new shieldClass();
+                desc = sc.getDesc();
+                break;
+            }
+
+            case "axe":{
+                axeClass ac = new axeClass();
+                desc = ac.getDesc();
                 break;
             }
         }

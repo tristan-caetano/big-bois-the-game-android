@@ -15,7 +15,8 @@ public class specialAttack extends AppCompatActivity {
 
     Random rand = new Random();
 
-    int health, stamina, multiplier, ehealthTemp, level, levelTracker, xpMilestone, numStaminaChonk, staminaChonkAmt, numHealthPacks, healthPackAmt, healthPackDropChance, pp, coins;
+    int health, stamina, multiplier, ehealthTemp, level, levelTracker, xpMilestone, numStaminaChonk,
+            staminaChonkAmt, numHealthPacks, healthPackAmt, healthPackDropChance, pp, coins, tier;
     double levelMultiplier;
 
     int attack = 100;
@@ -40,6 +41,7 @@ public class specialAttack extends AppCompatActivity {
     public static final String ENEMY = "enemy";
     public static final String EHEALTH = "eHealth";
     public static final String IHEALTH = "iHealth";
+    public static final String TIER = "tier";
 
 
     @Override
@@ -64,7 +66,10 @@ public class specialAttack extends AppCompatActivity {
         TextView fText = (TextView) findViewById(R.id.fightText2);
         TextView levelT = (TextView) findViewById(R.id.currentLevel2);
         TextView expT = (TextView) findViewById(R.id.currentExp2);
+        TextView tierT = (TextView) findViewById(R.id.currentTier2);
 
+
+        tierT.setText("Tier: " + Integer.toString(tier));
         fText.setText("Boi, " + enemy + "'s got " + Integer.toString(enemyHealth) + " health left. \nWhat you doin now fam?");
         enemyName.setText(enemy + "'s Health: ");
         healthText.setText("Health Bois: ");
@@ -138,6 +143,11 @@ public class specialAttack extends AppCompatActivity {
                 health -= sDamageTaken;
                 enemyHealth -= sDamageDealt;
                 stamina -= (sDamageDealt / 20);
+
+                if(enemyHealth < 0){
+                    enemyHealth = 0;
+                }
+
                 staminaT.setText(Integer.toString(stamina));
                 fText.setText("You gave " + enemy + " a phat slap for double damage!\nBtw that's " + Integer.toString(sDamageDealt)
                         + " damage.\nAlso you took like " + Integer.toString(sDamageTaken) + ". Lol heckin loser.");
@@ -187,6 +197,11 @@ public class specialAttack extends AppCompatActivity {
                 int sDamageTaken = rand.nextInt(maxEnemyAtt);
                 health -= sDamageTaken;
                 enemyHealth -= sDamageDealt;
+
+                if(enemyHealth < 0){
+                    enemyHealth = 0;
+                }
+
                 stamina -= (sDamageDealt / 30);
                 staminaT.setText(Integer.toString(stamina));
                 fText.setText("You ate the cronchy malk and gave \n" + enemy
@@ -320,5 +335,6 @@ public class specialAttack extends AppCompatActivity {
         initHealth = sharedPref.getInt(IHEALTH, 0);
         enemy = sharedPref.getString(ENEMY, "NAH");
         enemyHealth = sharedPref.getInt(EHEALTH, 500);
+        tier = sharedPref.getInt(TIER, 0);
     }
 }

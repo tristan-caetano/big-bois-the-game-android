@@ -10,12 +10,20 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class shop extends AppCompatActivity {
-    int pp, numStaminaChonk, numHealthPacks, coins;
+    int pp, numStaminaChonk, numHealthPacks, coins, tier, level;
+    String weapon;
+
+    private long lastTouchTime = 0;
+    private long currentTouchTime = 0;
+
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String CHONKS = "chonks";
     public static final String PACKS = "packs";
     public static final String PP = "pp";
     public static final String COINS = "coins";
+    public static final String TIER = "tier";
+    public static final String WEAPON = "weapon";
+    public static final String LEVEL = "level";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +35,12 @@ public class shop extends AppCompatActivity {
         final TextView invT = (TextView) findViewById(R.id.invText2);
         final TextView shopT = (TextView) findViewById(R.id.shopText);
         Button returnB = (Button) findViewById(R.id.returnButton);
-        Button buyHealthB = (Button) findViewById(R.id.buyHealth);
+        Button buyHealthB = (Button) findViewById(R.id.buyHealthPack);
         Button buyPPB = (Button) findViewById(R.id.buyPP);
-        Button buyStaminaB = (Button) findViewById(R.id.buyStamina);
+        Button buyStaminaB = (Button) findViewById(R.id.buyStaminaChonk);
+        Button buySword = (Button) findViewById(R.id.buySword);
+        Button buyShield = (Button) findViewById(R.id.buyShield);
+        Button buyAxe = (Button) findViewById(R.id.buyAxe);
 
         invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
         shopT.setText("Welcome to the shop, you can buy things here.");
@@ -87,6 +98,84 @@ public class shop extends AppCompatActivity {
             }
         });
 
+        buySword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                shopT.setText(swordClass.getDesc() + "\nDouble tap to confirm purchase.");
+
+                lastTouchTime = currentTouchTime;
+                currentTouchTime = System.currentTimeMillis();
+
+                System.out.println("This Time: " + currentTouchTime + "\nLast Time: " + lastTouchTime);
+
+                if (currentTouchTime - lastTouchTime < 250) {
+                    if(coins >= 500) {
+                        coins -= 500;
+                        shopT.setText("You purchased the sword!");
+                        weapon = "sword";
+                        save();
+                        lastTouchTime = 0;
+                        currentTouchTime = 0;
+                    } else{
+                        shopT.setText("You don't have enough coin bois to purchase that, idiot.");
+                    }
+                }
+            }
+        });
+
+        buyShield.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                shopT.setText(shieldClass.getDesc() + "\nDouble tap to confirm purchase.");
+
+                lastTouchTime = currentTouchTime;
+                currentTouchTime = System.currentTimeMillis();
+
+                System.out.println("This Time: " + currentTouchTime + "\nLast Time: " + lastTouchTime);
+
+                if (currentTouchTime - lastTouchTime < 250) {
+                    if(coins >= 500) {
+                        coins -= 500;
+                        shopT.setText("You purchased the shield!");
+                        weapon = "shield";
+                        save();
+                        lastTouchTime = 0;
+                        currentTouchTime = 0;
+                    } else{
+                        shopT.setText("You don't have enough coin bois to purchase that, idiot.");
+                    }
+                }
+            }
+        });
+
+        buyAxe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    shopT.setText(axeClass.getDesc() + "\nDouble tap to confirm purchase.");
+
+                    lastTouchTime = currentTouchTime;
+                    currentTouchTime = System.currentTimeMillis();
+
+                    System.out.println("This Time: " + currentTouchTime + "\nLast Time: " + lastTouchTime);
+
+                    if (currentTouchTime - lastTouchTime < 250) {
+                        if(coins >= 500) {
+                            coins -= 500;
+                            shopT.setText("You purchased the axe!");
+                            weapon = "axe";
+                            save();
+                            lastTouchTime = 0;
+                            currentTouchTime = 0;
+                        } else{
+                            shopT.setText("You don't have enough coin bois to purchase that, idiot.");
+                        }
+                    }
+            }
+        });
+
     }
 
     public void load(){
@@ -95,6 +184,9 @@ public class shop extends AppCompatActivity {
         numHealthPacks = sharedPref.getInt(PACKS, 2);
         pp = sharedPref.getInt(PP, 10);
         coins = sharedPref.getInt(COINS, 0);
+        weapon = sharedPref.getString(WEAPON, "fist");
+        tier = sharedPref.getInt(TIER, 0);
+        level = sharedPref.getInt(LEVEL, 0);
     }
 
     public void save(){
@@ -104,6 +196,9 @@ public class shop extends AppCompatActivity {
         editor.putInt(PACKS, numHealthPacks);
         editor.putInt(PP, pp);
         editor.putInt(COINS, coins);
+        editor.putString(WEAPON, weapon);
+        editor.putInt(TIER, tier);
+        editor.putInt(LEVEL, level);
         editor.commit();
 
     }

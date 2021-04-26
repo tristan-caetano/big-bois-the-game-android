@@ -14,7 +14,7 @@ public class fistClass {
         int doubleLevel = level;
 
         int levelMultiplier = ((doubleLevel / 10) + 1);
-        double doubleDamageDealt = ((rand.nextInt(100) * levelMultiplier));
+        double doubleDamageDealt = ((rand.nextInt(101) * levelMultiplier));
         int damageDealt = (int) doubleDamageDealt;
         System.out.println(damageDealt + " / " + levelMultiplier + "/" + doubleLevel);
         System.out.println(level + "  " + levelMultiplier);

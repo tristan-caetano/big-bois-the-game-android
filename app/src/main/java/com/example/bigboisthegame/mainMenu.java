@@ -12,10 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 public class mainMenu extends AppCompatActivity {
     int health, stamina, level, levelTracker;
 
+//    MediaPlayer player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+//        if(player == null){
+//            player = MediaPlayer.create(this, R.raw.fight_music_hault_n_chord);
+//            player.start();
+//        }
 
         load();
 
@@ -88,12 +95,19 @@ public class mainMenu extends AppCompatActivity {
         final String STAMINA = "stamina";
         final String LEVEL = "level";
         final String TRACKER = "tracker";
+        final String MUSIC = "music";
 
         SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         health = sharedPref.getInt(HEALTH, 1000);
         stamina = sharedPref.getInt(STAMINA, 100);
         level = sharedPref.getInt(LEVEL, 0);
         levelTracker = sharedPref.getInt(TRACKER, 0);
+        //player = sharedPref.get(PLAYER, null);
+
+    }
+
+    public void save(){
+
 
     }
 

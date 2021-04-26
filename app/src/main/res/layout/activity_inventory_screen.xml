@@ -9,20 +9,21 @@
 
     <TextView
         android:id="@+id/invText"
-        android:layout_width="376dp"
-        android:layout_height="539dp"
-        android:fontFamily="sans-serif-thin"
+        android:layout_width="372dp"
+        android:layout_height="437dp"
+        android:fontFamily="@font/dogica"
         android:gravity="center|left"
+        android:lineSpacingExtra="8sp"
         android:text="TextView"
         android:textColor="#FFFFFF"
-        android:textSize="40sp"
+        android:textSize="24sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.054" />
 
     <Button
         android:id="@+id/backButton"
@@ -39,4 +40,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.972" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="78dp"
+        android:layout_height="82dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.722"
+        app:srcCompat="@drawable/coin_boi_icon" />
+
+    <TextView
+        android:id="@+id/coinView"
+        android:layout_width="301dp"
+        android:layout_height="84dp"
+        android:fontFamily="@font/dogica"
+        android:gravity="center|right"
+        android:text="TextView"
+        android:textSize="36sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.721" />
 </androidx.constraintlayout.widget.ConstraintLayout>

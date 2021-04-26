@@ -3,7 +3,7 @@ package com.example.bigboisthegame;
 import java.util.Random;
 
 public class swordClass {
-    String  getDesc(){
+    static String  getDesc(){
         return ("The sword boi gives you no tactical advantage whatsoever, but your minumum damage per attack is now 50.");
     }
 
@@ -13,14 +13,10 @@ public class swordClass {
         int doubleLevel = level;
 
         int levelMultiplier = ((doubleLevel / 10) + 1);
-        double doubleDamageDealt = ((rand.nextInt(100) * levelMultiplier));
+        double doubleDamageDealt = (((rand.nextInt(51) + 50) * levelMultiplier));
         int damageDealt = (int) doubleDamageDealt;
         System.out.println(damageDealt + " / " + levelMultiplier + "/" + doubleLevel);
         System.out.println(level + "  " + levelMultiplier);
-
-        if(damageDealt < 50){
-            damageDealt = 50;
-        }
 
         return damageDealt;
     }

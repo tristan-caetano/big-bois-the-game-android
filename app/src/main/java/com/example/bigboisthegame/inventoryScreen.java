@@ -25,9 +25,11 @@ public class inventoryScreen extends AppCompatActivity {
         load();
 
         TextView invT = (TextView) findViewById(R.id.invText);
+        TextView cbT = (TextView) findViewById(R.id.coinView);
         Button backB = (Button) findViewById(R.id.backButton);
 
-        invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
+        invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp));
+        cbT.setText(Integer.toString(coins));
 
         backB.setOnClickListener(new View.OnClickListener() {
             @Override

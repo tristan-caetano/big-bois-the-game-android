@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Big Bois The Game</string>
+    <string name="_1_health_pack_50_cb">1 Health Pack (50 CB)</string>
+    <string name="_1_stamina_chonk_50_cb">1 Stamina Chonk (50 CB)</string>
+    <string name="_5_pp_20_cb">5 PP (20 CB)</string>
 </resources>
