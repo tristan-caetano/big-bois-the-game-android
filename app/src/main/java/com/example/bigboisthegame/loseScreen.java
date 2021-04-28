@@ -30,7 +30,7 @@ public class loseScreen extends AppCompatActivity {
         enemy = sharedPref.getString(ENEMY, "NAH");
         counter = sharedPref.getInt(COUNTER, 0);
 
-        loseText.setText("Looks like you hecken died bro. \n " + enemy + " defiled your corpse. \n You killed "
+        loseText.setText("Looks like you hecken died bro. " + enemy + " defiled your corpse. You killed "
                 + Integer.toString(counter) + " enemies.");
 
         sharedPref.edit().clear().commit();

@@ -45,6 +45,7 @@
         android:layout_height="390dp"
         android:fontFamily="@font/dogica"
         android:gravity="center"
+        android:lineSpacingExtra="8sp"
         android:text="TextView"
         android:textColor="#FFFFFF"
         android:textSize="24sp"

@@ -46,7 +46,7 @@
         android:fontFamily="@font/dogica"
         android:gravity="center"
         android:lineSpacingExtra="8sp"
-        android:shadowColor="#FFFFFF"
+        android:shadowColor="#00FFFFFF"
         android:shadowDx="10"
         android:shadowDy="10"
         android:shadowRadius="10"

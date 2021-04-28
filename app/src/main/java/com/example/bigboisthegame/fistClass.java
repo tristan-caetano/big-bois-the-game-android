@@ -8,7 +8,15 @@ public class fistClass {
         return ("Dude why are you looking up a description about your fists? They are used for bonking bois, that's it.");
     }
 
-    int getDamage(int tier, int level){
+    int getDamage(int tier, int level, int weaponType){
+
+        switch (weaponType){
+            case 1: return base(tier, level);
+            default: return -1;
+        }
+    }
+
+    int base(int tier, int level){
         Random rand = new Random();
 
         int doubleLevel = level;

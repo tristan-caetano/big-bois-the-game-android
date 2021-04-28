@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class shop extends AppCompatActivity {
-    int pp, numStaminaChonk, numHealthPacks, coins, tier, level;
+    int pp, numStaminaChonk, numHealthPacks, coins, tier, level, swordType, shieldType, axeType;
     String weapon;
 
     private long lastTouchTime = 0;
@@ -24,13 +24,15 @@ public class shop extends AppCompatActivity {
     public static final String TIER = "tier";
     public static final String WEAPON = "weapon";
     public static final String LEVEL = "level";
+    public static final String SWORDTYPE = "sword";
+    public static final String AXETYPE = "axe";
+    public static final String SHIELDTYPE = "shield";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
-
-        load();
 
         final TextView invT = (TextView) findViewById(R.id.invText2);
         final TextView shopT = (TextView) findViewById(R.id.shopText);
@@ -41,6 +43,25 @@ public class shop extends AppCompatActivity {
         Button buySword = (Button) findViewById(R.id.buySword);
         Button buyShield = (Button) findViewById(R.id.buyShield);
         Button buyAxe = (Button) findViewById(R.id.buyAxe);
+
+
+        load();
+
+        if(swordType > 0){
+
+            buySword.setAlpha(.5f);
+
+        }
+        if(shieldType > 0){
+
+            buyShield.setAlpha(.5f);
+
+        }
+        if(axeType > 0){
+
+            buyAxe.setAlpha(.5f);
+
+        }
 
         invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
         shopT.setText("Welcome to the shop, you can buy things here.");
@@ -70,6 +91,7 @@ public class shop extends AppCompatActivity {
         buyPPB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (coins >= 20) {
                     pp += 5;
                     shopT.setText("You got more pp!\nYou now have " + Integer.toString(pp) + " pp!");
@@ -107,13 +129,13 @@ public class shop extends AppCompatActivity {
                 lastTouchTime = currentTouchTime;
                 currentTouchTime = System.currentTimeMillis();
 
-                System.out.println("This Time: " + currentTouchTime + "\nLast Time: " + lastTouchTime);
-
                 if (currentTouchTime - lastTouchTime < 250) {
                     if(coins >= 500) {
                         coins -= 500;
                         shopT.setText("You purchased the sword!");
+                        invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
                         weapon = "sword";
+                        swordType = 0;
                         save();
                         lastTouchTime = 0;
                         currentTouchTime = 0;
@@ -133,13 +155,13 @@ public class shop extends AppCompatActivity {
                 lastTouchTime = currentTouchTime;
                 currentTouchTime = System.currentTimeMillis();
 
-                System.out.println("This Time: " + currentTouchTime + "\nLast Time: " + lastTouchTime);
-
                 if (currentTouchTime - lastTouchTime < 250) {
                     if(coins >= 500) {
                         coins -= 500;
                         shopT.setText("You purchased the shield!");
+                        invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
                         weapon = "shield";
+                        shieldType = 0;
                         save();
                         lastTouchTime = 0;
                         currentTouchTime = 0;
@@ -159,13 +181,13 @@ public class shop extends AppCompatActivity {
                     lastTouchTime = currentTouchTime;
                     currentTouchTime = System.currentTimeMillis();
 
-                    System.out.println("This Time: " + currentTouchTime + "\nLast Time: " + lastTouchTime);
-
                     if (currentTouchTime - lastTouchTime < 250) {
                         if(coins >= 500) {
                             coins -= 500;
                             shopT.setText("You purchased the axe!");
+                            invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
                             weapon = "axe";
+                            axeType = 0;
                             save();
                             lastTouchTime = 0;
                             currentTouchTime = 0;
@@ -187,6 +209,10 @@ public class shop extends AppCompatActivity {
         weapon = sharedPref.getString(WEAPON, "fist");
         tier = sharedPref.getInt(TIER, 0);
         level = sharedPref.getInt(LEVEL, 0);
+        swordType = sharedPref.getInt(SWORDTYPE, 0);
+        shieldType = sharedPref.getInt(SHIELDTYPE, 0);
+        axeType = sharedPref.getInt(AXETYPE, 0);
+
     }
 
     public void save(){
@@ -199,6 +225,9 @@ public class shop extends AppCompatActivity {
         editor.putString(WEAPON, weapon);
         editor.putInt(TIER, tier);
         editor.putInt(LEVEL, level);
+        editor.putInt(SWORDTYPE, swordType);
+        editor.putInt(SHIELDTYPE, shieldType);
+        editor.putInt(AXETYPE, axeType);
         editor.commit();
 
     }

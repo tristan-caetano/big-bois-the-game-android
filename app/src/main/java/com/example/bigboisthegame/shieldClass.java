@@ -2,9 +2,10 @@ package com.example.bigboisthegame;
 
 import java.util.Random;
 
-public class swordClass {
+public class shieldClass {
+
     static String  getDesc(){
-        return ("The sword boi gives you no tactical advantage whatsoever, but your minumum damage per attack is now 50.");
+        return ("The shield boi is kinda a dumb weapon, but hey you can block more often I guess.\n(No you can't use it with the sword, that would make too much sense.)");
     }
 
     int getDamage(int tier, int level, int weaponType){
@@ -19,9 +20,8 @@ public class swordClass {
         Random rand = new Random();
 
         int doubleLevel = level;
-
         int levelMultiplier = ((doubleLevel / 10) + 1);
-        double doubleDamageDealt = (((rand.nextInt(51) + 50) * levelMultiplier));
+        double doubleDamageDealt = (((rand.nextInt(51)) * levelMultiplier));
         int damageDealt = (int) doubleDamageDealt;
         System.out.println(damageDealt + " / " + levelMultiplier + "/" + doubleLevel);
         System.out.println(level + "  " + levelMultiplier);

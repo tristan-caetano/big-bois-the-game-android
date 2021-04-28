@@ -35,7 +35,7 @@ public class run extends AppCompatActivity {
             coins -= 50;
             runT.setText("You ran like a pansy, and you dropped 50 CB.\nGood job." );
         } else if(coins < 50 && coins > 0){
-            runT.setText("You ran like a pansy, and you dropped " + Integer.toString(coins) + " CB.\nGood job." );
+            runT.setText("You ran like a pansy, and you dropped " + Integer.toString(coins) + " CB. Good job." );
             coins = 0;
         }else{
             runT.setText("You ran like a pansy. \nGood job." );

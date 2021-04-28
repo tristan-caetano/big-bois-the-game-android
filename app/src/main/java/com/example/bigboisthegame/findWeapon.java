@@ -4,12 +4,14 @@ public class findWeapon{
     private int tier;
     private String weapon;
     private int level;
+    private int weaponType;
 
     //Constructor to setup object
-    findWeapon(int tier, String weapon, int level){
+    findWeapon(int tier, String weapon, int level, int weaponType){
         this.tier = tier;
         this.weapon = weapon;
         this.level = level;
+        this.weaponType = weaponType;
     }
 
     //Returns the damage for the weapon
@@ -19,25 +21,25 @@ public class findWeapon{
         switch(weapon){
             case "fist":{
                 fistClass fc = new fistClass();
-                damage = fc.getDamage(tier, level);
+                damage = fc.getDamage(tier, level, weaponType);
                 break;
             }
 
             case "sword":{
                 swordClass sc = new swordClass();
-                damage = sc.getDamage(tier, level);
+                damage = sc.getDamage(tier, level, weaponType);
                 break;
             }
 
             case "shield":{
                 shieldClass sc = new shieldClass();
-                damage = sc.getDamage(tier, level);
+                damage = sc.getDamage(tier, level, weaponType);
                 break;
             }
 
             case "axe":{
                 axeClass ac = new axeClass();
-                damage = ac.getDamage(tier, level);
+                damage = ac.getDamage(tier, level, weaponType);
                 break;
             }
         }

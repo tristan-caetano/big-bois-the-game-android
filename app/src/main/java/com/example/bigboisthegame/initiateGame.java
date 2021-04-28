@@ -306,7 +306,7 @@ public class initiateGame extends AppCompatActivity {
             int damageDealt;
 
             //Player's Turn
-            findWeapon fw = new findWeapon(tier, weapon, level);
+            findWeapon fw = new findWeapon(tier, weapon, level, 0);
             damageDealt = fw.findDmg();
 
             int damageTaken = rand.nextInt(maxEnemyAtt);
@@ -424,46 +424,6 @@ public class initiateGame extends AppCompatActivity {
         }
     }
 
-    //Saving all variables to Shared Prefs
-    public void save() {
-        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(HEALTH, health);
-        editor.putInt(STAMINA, stamina);
-        editor.putInt(CHONKS, numStaminaChonk);
-        editor.putInt(PACKS, numHealthPacks);
-        editor.putInt(PP, pp);
-        editor.putInt(COUNTER, counter);
-        editor.putInt(LEVEL, level);
-        editor.putInt(COINS, coins);
-        editor.putInt(TRACKER, levelTracker);
-        editor.putString(ENEMY, enemy);
-        editor.putInt(EHEALTH, enemyHealth);
-        editor.putInt(IHEALTH, initHealth);
-        editor.putInt(TIER, tier);
-        editor.putString(WEAPON, weapon);
-        editor.commit();
-
-    }
-
-    //Loading all values from shared prefs
-    public void load() {
-        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        health = sharedPref.getInt(HEALTH, 1000);
-        stamina = sharedPref.getInt(STAMINA, 100);
-        numStaminaChonk = sharedPref.getInt(CHONKS, 0);
-        numHealthPacks = sharedPref.getInt(PACKS, 2);
-        pp = sharedPref.getInt(PP, 10);
-        counter = sharedPref.getInt(COUNTER, 0);
-        level = sharedPref.getInt(LEVEL, 0);
-        coins = sharedPref.getInt(COINS, 0);
-        levelTracker = sharedPref.getInt(TRACKER, 0);
-        initHealth = sharedPref.getInt(IHEALTH, 0);
-        weapon = sharedPref.getString(WEAPON, "fist");
-        tier = sharedPref.getInt(TIER, 0);
-
-    }
-
     //Function for taking a health pack to restore health
     public void healthPackInstance() {
 
@@ -516,6 +476,48 @@ public class initiateGame extends AppCompatActivity {
         save();
 
     }
+
+    //Saving all variables to Shared Prefs
+    public void save() {
+
+        saveLoadClass.health(health,true);
+        saveLoadClass.stamina(stamina,true);
+        saveLoadClass.numStam(numStaminaChonk,true);
+        saveLoadClass.numHeal(numHealthPacks,true);
+        saveLoadClass.pp(pp, true);
+        saveLoadClass.counter(counter,true);
+        saveLoadClass.level(level,true);
+        saveLoadClass.coins(coins,true);
+        saveLoadClass.levelTracker(levelTracker,true);
+        saveLoadClass.enemy(enemy,true);
+        saveLoadClass.enemyHealth(enemyHealth,true);
+        saveLoadClass.initHealth(initHealth, true);
+        saveLoadClass.tier(tier,true);
+        saveLoadClass.weapon(weapon,true);
+
+    }
+
+    //Loading all values from shared prefs
+    public void load() {
+
+        saveLoadClass.health(health,false);
+        saveLoadClass.stamina(stamina,false);
+        saveLoadClass.numStam(numStaminaChonk,false);
+        saveLoadClass.numHeal(numHealthPacks,false);
+        saveLoadClass.pp(pp, false);
+        saveLoadClass.counter(counter,false);
+        saveLoadClass.level(level,false);
+        saveLoadClass.coins(coins,false);
+        saveLoadClass.levelTracker(levelTracker,false);
+        saveLoadClass.enemy(enemy,false);
+        saveLoadClass.enemyHealth(enemyHealth,false);
+        saveLoadClass.initHealth(initHealth, false);
+        saveLoadClass.tier(tier,false);
+        saveLoadClass.weapon(weapon,false);
+
+    }
+
+
 
     //Does not allow player to hit return on device to go to previous screen from here
     //IE: locked in battle
