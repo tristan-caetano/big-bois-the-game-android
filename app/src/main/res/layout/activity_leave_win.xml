@@ -8,7 +8,7 @@
     tools:context=".leaveWin">
 
     <Button
-        android:id="@+id/returnButton"
+        android:id="@+id/returnButtonMM"
         android:layout_width="376dp"
         android:layout_height="300dp"
         android:background="#FFFFFF"

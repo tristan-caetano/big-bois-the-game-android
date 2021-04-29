@@ -94,7 +94,7 @@
                 android:textSize="25sp" />
 
             <Button
-                android:id="@+id/buyAxe"
+                android:id="@+id/equipAxe"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="#FFFFFF"
@@ -104,7 +104,7 @@
                 android:textSize="25sp" />
 
             <Button
-                android:id="@+id/buyShield"
+                android:id="@+id/equipShield"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="#FFFFFF"
@@ -114,7 +114,7 @@
                 android:textSize="25sp" />
 
             <Button
-                android:id="@+id/buySword"
+                android:id="@+id/equipSword"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_gravity="right"
@@ -125,7 +125,7 @@
                 android:textSize="25sp" />
 
             <Button
-                android:id="@+id/returnButton"
+                android:id="@+id/returnButtonMM"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="#FFFFFF"

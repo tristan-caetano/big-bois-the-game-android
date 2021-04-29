@@ -1,5 +1,7 @@
 package com.example.bigboisthegame;
 
+import android.content.SharedPreferences;
+
 import java.util.Random;
 
 public class swordClass {
@@ -27,5 +29,13 @@ public class swordClass {
         System.out.println(level + "  " + levelMultiplier);
 
         return damageDealt;
+    }
+
+    int getType(SharedPreferences sp){
+        int weaponType = 0;
+        saveLoadClass slc = new saveLoadClass(sp);
+        weaponType = slc.swordType(weaponType, false);
+
+        return weaponType;
     }
 }

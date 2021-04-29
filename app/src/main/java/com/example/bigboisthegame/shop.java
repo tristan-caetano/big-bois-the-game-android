@@ -36,35 +36,24 @@ public class shop extends AppCompatActivity {
 
         final TextView invT = (TextView) findViewById(R.id.invText2);
         final TextView shopT = (TextView) findViewById(R.id.shopText);
-        Button returnB = (Button) findViewById(R.id.returnButton);
+        Button returnB = (Button) findViewById(R.id.returnButtonMM);
         Button buyHealthB = (Button) findViewById(R.id.buyHealthPack);
         Button buyPPB = (Button) findViewById(R.id.buyPP);
         Button buyStaminaB = (Button) findViewById(R.id.buyStaminaChonk);
-        Button buySword = (Button) findViewById(R.id.buySword);
-        Button buyShield = (Button) findViewById(R.id.buyShield);
-        Button buyAxe = (Button) findViewById(R.id.buyAxe);
+        final Button buySword = (Button) findViewById(R.id.equipSword);
+        final Button buyShield = (Button) findViewById(R.id.equipShield);
+        final Button buyAxe = (Button) findViewById(R.id.equipAxe);
 
 
         load();
 
-        if(swordType > 0){
-
-            buySword.setAlpha(.5f);
-
-        }
-        if(shieldType > 0){
-
-            buyShield.setAlpha(.5f);
-
-        }
-        if(axeType > 0){
-
-            buyAxe.setAlpha(.5f);
-
-        }
-
         invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
         shopT.setText("Welcome to the shop, you can buy things here.");
+
+        if(!ifWeaponNotOwned(swordType)) {buySword.setAlpha(.5f);};
+        if(!ifWeaponNotOwned(shieldType)) {buyShield.setAlpha(.5f);};
+        if(!ifWeaponNotOwned(axeType)) {buyAxe.setAlpha(.5f);};
+
 
         returnB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,61 +109,81 @@ public class shop extends AppCompatActivity {
             }
         });
 
+
         buySword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                shopT.setText(swordClass.getDesc() + "\nDouble tap to confirm purchase.");
+                if (ifWeaponNotOwned(swordType)) {
 
-                lastTouchTime = currentTouchTime;
-                currentTouchTime = System.currentTimeMillis();
+                    shopT.setText(swordClass.getDesc() + "\nDouble tap to confirm purchase.");
 
-                if (currentTouchTime - lastTouchTime < 250) {
-                    if(coins >= 500) {
-                        coins -= 500;
-                        shopT.setText("You purchased the sword!");
-                        invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
-                        weapon = "sword";
-                        swordType = 0;
-                        save();
-                        lastTouchTime = 0;
-                        currentTouchTime = 0;
-                    } else{
-                        shopT.setText("You don't have enough coin bois to purchase that, idiot.");
+                    lastTouchTime = currentTouchTime;
+                    currentTouchTime = System.currentTimeMillis();
+                    if (currentTouchTime - lastTouchTime < 250) {
+                        if (coins >= 500) {
+                            coins -= 500;
+                            shopT.setText("You purchased the sword!");
+                            invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
+                            weapon = "sword";
+                            swordType = 1;
+                            if (!ifWeaponNotOwned(swordType)) {
+                                buySword.setAlpha(.5f);
+                            }
+                            save();
+                            lastTouchTime = 0;
+                            currentTouchTime = 0;
+                        } else {
+                            shopT.setText("You don't have enough coin bois to purchase that, idiot.");
+                        }
                     }
+                } else {
+                    shopT.setText("Bro, you already bought that, there's literally no point in buying again.");
                 }
             }
-        });
 
-        buyShield.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    });
 
-                shopT.setText(shieldClass.getDesc() + "\nDouble tap to confirm purchase.");
 
-                lastTouchTime = currentTouchTime;
-                currentTouchTime = System.currentTimeMillis();
+            buyShield.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                if (currentTouchTime - lastTouchTime < 250) {
-                    if(coins >= 500) {
-                        coins -= 500;
-                        shopT.setText("You purchased the shield!");
-                        invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
-                        weapon = "shield";
-                        shieldType = 0;
-                        save();
-                        lastTouchTime = 0;
-                        currentTouchTime = 0;
-                    } else{
-                        shopT.setText("You don't have enough coin bois to purchase that, idiot.");
+                    if (ifWeaponNotOwned(shieldType)) {
+
+                    shopT.setText(shieldClass.getDesc() + "\nDouble tap to confirm purchase.");
+
+                    lastTouchTime = currentTouchTime;
+                    currentTouchTime = System.currentTimeMillis();
+
+                    if (currentTouchTime - lastTouchTime < 250) {
+                        if (coins >= 500) {
+                            coins -= 500;
+                            shopT.setText("You purchased the shield!");
+                            invT.setText("Health Packs: " + Integer.toString(numHealthPacks) +
+                                    "\nStamina Chonks: " + Integer.toString(numStaminaChonk) +
+                                    "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
+                            weapon = "shield";
+                            shieldType = 1;
+                            if(!ifWeaponNotOwned(shieldType)) {buyShield.setAlpha(.5f);};
+                            save();
+                            lastTouchTime = 0;
+                            currentTouchTime = 0;
+                        } else {
+                            shopT.setText("You don't have enough coin bois to purchase that, idiot.");
+                        }
+                    }
+                    } else {
+                        shopT.setText("Bro, you already bought that, there's literally no point in buying again.");
                     }
                 }
-            }
-        });
+            });
 
-        buyAxe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            buyAxe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                        if (ifWeaponNotOwned(axeType)) {
 
                     shopT.setText(axeClass.getDesc() + "\nDouble tap to confirm purchase.");
 
@@ -182,25 +191,29 @@ public class shop extends AppCompatActivity {
                     currentTouchTime = System.currentTimeMillis();
 
                     if (currentTouchTime - lastTouchTime < 250) {
-                        if(coins >= 500) {
+                        if (coins >= 500) {
                             coins -= 500;
                             shopT.setText("You purchased the axe!");
                             invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
                             weapon = "axe";
-                            axeType = 0;
+                            axeType = 1;
+                            if(!ifWeaponNotOwned(axeType)) {buyAxe.setAlpha(.5f);};
                             save();
                             lastTouchTime = 0;
                             currentTouchTime = 0;
-                        } else{
+                        } else {
                             shopT.setText("You don't have enough coin bois to purchase that, idiot.");
                         }
                     }
-            }
-        });
+                        } else {
+                            shopT.setText("Bro, you already bought that, there's literally no point in buying again.");
+                        }
+                }
+            });
 
     }
 
-    public void load(){
+    public void load() {
         SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         numStaminaChonk = sharedPref.getInt(CHONKS, 0);
         numHealthPacks = sharedPref.getInt(PACKS, 2);
@@ -215,9 +228,12 @@ public class shop extends AppCompatActivity {
 
     }
 
-    public void save(){
+    public void save() {
         SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+
+        System.out.println("Sword Type: " + swordType);
+
         editor.putInt(CHONKS, numStaminaChonk);
         editor.putInt(PACKS, numHealthPacks);
         editor.putInt(PP, pp);
@@ -231,4 +247,15 @@ public class shop extends AppCompatActivity {
         editor.commit();
 
     }
+
+    boolean ifWeaponNotOwned(int weaponType) {
+
+        if (weaponType == 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }

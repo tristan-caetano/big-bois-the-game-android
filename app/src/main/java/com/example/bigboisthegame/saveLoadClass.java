@@ -1,6 +1,5 @@
 package com.example.bigboisthegame;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
 public class saveLoadClass {
@@ -20,11 +19,16 @@ public class saveLoadClass {
     public static final String IHEALTH = "iHealth";
     public static final String WEAPON = "weapon";
     public static final String TIER = "tier";
+    public static final String SWORDTYPE = "sword";
+    public static final String AXETYPE = "axe";
+    public static final String SHIELDTYPE = "shield";
+    SharedPreferences sharedPref;
 
-    static Context c;
+     saveLoadClass(SharedPreferences sharedPref){
+         this.sharedPref = sharedPref;
+     }
 
-    static int health(int health, boolean saveLoad){
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int health(int health, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -37,8 +41,7 @@ public class saveLoadClass {
         }
     }
 
-    static int stamina(int stamina, boolean saveLoad){
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int stamina(int stamina, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -51,8 +54,7 @@ public class saveLoadClass {
         }
     }
 
-    static int numStam(int numStaminaChonk, boolean saveLoad){
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int numStam(int numStaminaChonk, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -65,9 +67,7 @@ public class saveLoadClass {
         }
     }
 
-    static int numHeal(int numHealthPacks, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int numHeal(int numHealthPacks, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -80,9 +80,7 @@ public class saveLoadClass {
         }
     }
 
-    static int pp(int pp, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int pp(int pp, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -95,9 +93,7 @@ public class saveLoadClass {
         }
     }
 
-    static int counter(int counter, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int counter(int counter, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -110,9 +106,7 @@ public class saveLoadClass {
         }
     }
 
-    static int level(int level, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int level(int level, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -125,9 +119,7 @@ public class saveLoadClass {
         }
     }
 
-    static int coins(int coins, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int coins(int coins, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -140,9 +132,7 @@ public class saveLoadClass {
         }
     }
 
-    static int levelTracker(int levelTracker, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int levelTracker(int levelTracker, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -155,9 +145,7 @@ public class saveLoadClass {
         }
     }
 
-    static String enemy(String enemy, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     String enemy(String enemy, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -170,9 +158,7 @@ public class saveLoadClass {
         }
     }
 
-    static int enemyHealth(int enemyHealth, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int enemyHealth(int enemyHealth, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -185,9 +171,7 @@ public class saveLoadClass {
         }
     }
 
-    static int initHealth(int initHealth, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int initHealth(int initHealth, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -202,7 +186,7 @@ public class saveLoadClass {
 
 //    int initHealth(boolean saveLoad){
 //
-//        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+//
 //        SharedPreferences.Editor editor = sharedPref.edit();
 //
 //        if(saveLoad){
@@ -215,9 +199,7 @@ public class saveLoadClass {
 //        }
 //    }
 
-    static int tier(int tier, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     int tier(int tier, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -230,9 +212,7 @@ public class saveLoadClass {
         }
     }
 
-    static String weapon(String weapon, boolean saveLoad){
-
-        SharedPreferences sharedPref = c.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+     String weapon(String weapon, boolean saveLoad){
         SharedPreferences.Editor editor = sharedPref.edit();
 
         if(saveLoad){
@@ -244,4 +224,44 @@ public class saveLoadClass {
             return weapon;
         }
     }
+
+    int swordType(int weaponType, boolean saveLoad){
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        if(saveLoad){
+            editor.putInt(SWORDTYPE, weaponType);
+            editor.commit();
+            return 0;
+        }else{
+            weaponType = sharedPref.getInt(SWORDTYPE, 0);
+            return weaponType;
+        }
+    }
+
+    int shieldType(int weaponType, boolean saveLoad){
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        if(saveLoad){
+            editor.putInt(SHIELDTYPE, weaponType);
+            editor.commit();
+            return 0;
+        }else{
+            weaponType = sharedPref.getInt(SHIELDTYPE, 0);
+            return weaponType;
+        }
+    }
+
+    int axeType(int weaponType, boolean saveLoad){
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        if(saveLoad){
+            editor.putInt(AXETYPE, weaponType);
+            editor.commit();
+            return 0;
+        }else{
+            weaponType = sharedPref.getInt(AXETYPE, 0);
+            return weaponType;
+        }
+    }
+
 }

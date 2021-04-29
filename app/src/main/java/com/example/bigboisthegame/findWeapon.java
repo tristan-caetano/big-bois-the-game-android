@@ -1,5 +1,7 @@
 package com.example.bigboisthegame;
 
+import android.content.SharedPreferences;
+
 public class findWeapon{
     private int tier;
     private String weapon;
@@ -45,6 +47,39 @@ public class findWeapon{
         }
 
         return damage;
+    }
+
+    //Returns the damage for the weapon
+    int findType(SharedPreferences sp){
+        int weaponType = 0;
+
+        switch(weapon){
+            case "fist":{
+                fistClass fc = new fistClass();
+                weaponType = fc.getType(sp);
+                break;
+            }
+
+            case "sword":{
+                swordClass sc = new swordClass();
+                weaponType = sc.getType(sp);
+                break;
+            }
+
+            case "shield":{
+                shieldClass sc = new shieldClass();
+                weaponType = sc.getType(sp);
+                break;
+            }
+
+            case "axe":{
+                axeClass ac = new axeClass();
+                weaponType = ac.getType(sp);
+                break;
+            }
+        }
+
+        return weaponType;
     }
 
     //Returns the description of the weapon

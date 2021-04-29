@@ -87,6 +87,15 @@ public class mainMenu extends AppCompatActivity {
             }
         });
 
+        Button inven = (Button) findViewById(R.id.InventoryButton2);
+        inven.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), mmInventory.class);
+                startActivity(startIntent);
+            }
+        });
+
     }
 
     public void load(){

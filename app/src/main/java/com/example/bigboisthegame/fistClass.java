@@ -1,5 +1,7 @@
 package com.example.bigboisthegame;
 
+import android.content.SharedPreferences;
+
 import java.util.Random;
 
 public class fistClass {
@@ -11,7 +13,7 @@ public class fistClass {
     int getDamage(int tier, int level, int weaponType){
 
         switch (weaponType){
-            case 1: return base(tier, level);
+            case 0: return base(tier, level);
             default: return -1;
         }
     }
@@ -28,5 +30,13 @@ public class fistClass {
         System.out.println(level + "  " + levelMultiplier);
 
         return damageDealt;
+    }
+
+    int getType(SharedPreferences sp){
+//        int weaponType = 0;
+//        saveLoadClass slc = new saveLoadClass(sp);
+//        //weaponType = slc.fistType(weaponType, false);
+
+        return 1;
     }
 }

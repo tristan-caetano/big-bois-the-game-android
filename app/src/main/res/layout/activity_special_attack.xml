@@ -139,7 +139,7 @@
         tools:text='Ask " + enemy + " politely, but firmly, to leave \n(5 PP)' />
 
     <Button
-        android:id="@+id/returnButton"
+        android:id="@+id/returnButtonMM"
         android:layout_width="150dp"
         android:layout_height="80dp"
         android:background="#FFFFFF"

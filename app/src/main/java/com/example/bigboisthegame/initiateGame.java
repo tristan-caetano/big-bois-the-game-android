@@ -17,7 +17,7 @@ public class initiateGame extends AppCompatActivity {
     //Player Variables
     int health, stamina, counter, attack, ehealthTemp, level, levelTracker, xpMilestone,
             numStaminaChonk, staminaChonkAmt, chance, numHealthPacks, healthPackAmt, pp, coins,
-            tier;
+            tier, weaponType;
     double levelMultiplier, doubleLevel;
     boolean bossLevel;
     String weapon;
@@ -31,20 +31,6 @@ public class initiateGame extends AppCompatActivity {
 
     //Initializing static strings for saved values
     public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String HEALTH = "health";
-    public static final String STAMINA = "stamina";
-    public static final String COUNTER = "counter";
-    public static final String LEVEL = "level";
-    public static final String CHONKS = "chonks";
-    public static final String PACKS = "packs";
-    public static final String PP = "pp";
-    public static final String COINS = "coins";
-    public static final String TRACKER = "tracker";
-    public static final String ENEMY = "enemy";
-    public static final String EHEALTH = "eHealth";
-    public static final String IHEALTH = "iHealth";
-    public static final String WEAPON = "weapon";
-    public static final String TIER = "tier";
     Random rand = new Random();
 
     @Override
@@ -71,6 +57,9 @@ public class initiateGame extends AppCompatActivity {
 
     public void startBattle() {
 
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        saveLoadClass slc = new saveLoadClass(sharedPref);
+
         //Setting on screen buttons
         Button fight = (Button) findViewById(R.id.fightButton);
         Button specialB = (Button) findViewById(R.id.specialButton);
@@ -87,14 +76,8 @@ public class initiateGame extends AppCompatActivity {
         //Calling method to setup default values
         playerSetup();
 
-        //Initializing for loading variables
-        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-
-        //Getting stored values for current enemy and enemy health
-        System.out.println(sharedPref.getString(ENEMY, "NAH"));
-        System.out.println(sharedPref.getInt(EHEALTH, 69420));
-        enemy = sharedPref.getString(ENEMY, "NAH");
-        enemyHealth = sharedPref.getInt(EHEALTH, 500);
+        enemy = slc.enemy(enemy, false);
+        enemyHealth = slc.enemyHealth(enemyHealth, false);
 
         //If the game fails to properly name an enemy, the function to do so is called again
         if (enemy.equals("NAH")) {
@@ -224,6 +207,9 @@ public class initiateGame extends AppCompatActivity {
     //Returns the string of the enemy name
     String getEnemyName() {
 
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        saveLoadClass slc = new saveLoadClass(sharedPref);
+
         bossLevel = false;
 
         System.out.println("ENEMY: " + (counter % 5));
@@ -268,15 +254,10 @@ public class initiateGame extends AppCompatActivity {
         System.out.println("EnemyXP: " + ehealthTemp);
         System.out.println("EnemyH: " + enemyHealth);
 
-        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(ENEMY, enemy);
-        editor.putInt(EHEALTH, enemyHealth);
+        slc.enemy(enemy, true);
+        slc.enemyHealth(enemyHealth, true);
         initHealth = enemyHealth;
-        editor.putInt(IHEALTH, initHealth);
-        editor.commit();
-
-        System.out.println(sharedPref.getString(ENEMY, "NA"));
+        slc.initHealth(initHealth, true);
 
         save();
 
@@ -290,6 +271,8 @@ public class initiateGame extends AppCompatActivity {
         String playerAtt = "";
         String enemyAtt = "";
 
+        System.out.println("Weapon Type: " + weaponType);
+
         TextView fText = (TextView) findViewById(R.id.fightText);
 
         Button fight = (Button) findViewById(R.id.fightButton);
@@ -301,13 +284,18 @@ public class initiateGame extends AppCompatActivity {
         Button blockB = (Button) findViewById(R.id.blockButton);
         //Button suicideB = (Button) findViewById(R.id.suicideButton);
 
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        saveLoadClass slc = new saveLoadClass(sharedPref);
+
         if (stamina > 10) {
             doubleLevel = level;
             int damageDealt;
 
             //Player's Turn
             findWeapon fw = new findWeapon(tier, weapon, level, 0);
-            damageDealt = fw.findDmg();
+            findWeapon rfw = new findWeapon(tier, weapon, level, fw.findType(sharedPref));
+            System.out.println("Sword Type Att: " + fw.findType(sharedPref) + "\nWeapon: " + weapon);
+            damageDealt = rfw.findDmg();
 
             int damageTaken = rand.nextInt(maxEnemyAtt);
 
@@ -321,6 +309,10 @@ public class initiateGame extends AppCompatActivity {
             }
             health -= damageTaken;
             enemyHealth -= damageDealt;
+
+            System.out.println("Damage Dealt: " + damageDealt);
+            System.out.println("Enemy Health: " + enemyHealth);
+
 
             if(enemyHealth < 0){
                 enemyHealth = 0;
@@ -361,10 +353,7 @@ public class initiateGame extends AppCompatActivity {
             Intent startIntent = new Intent(getApplicationContext(), ddScreen.class);
             startActivity(startIntent);
         } else if (enemyHealth < 1) {
-            SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(ENEMY, enemy);
-            editor.commit();
+            slc.enemy(enemy,true);
             Intent startIntent = new Intent(getApplicationContext(), winScreen.class);
             startActivity(startIntent);
 
@@ -376,6 +365,9 @@ public class initiateGame extends AppCompatActivity {
 
     //Function that blocks a random amount of damage from the enemy, and restores a random amount of stamina
     public void block() {
+
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        saveLoadClass slc = new saveLoadClass(sharedPref);
 
         TextView fText = (TextView) findViewById(R.id.fightText);
 
@@ -411,10 +403,7 @@ public class initiateGame extends AppCompatActivity {
             Intent startIntent = new Intent(getApplicationContext(), ddScreen.class);
             startActivity(startIntent);
         } else if (enemyHealth < 1) {
-            SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(ENEMY, enemy);
-            editor.commit();
+            slc.enemy(enemy,true);
             Intent startIntent = new Intent(getApplicationContext(), winScreen.class);
             startActivity(startIntent);
 
@@ -480,40 +469,46 @@ public class initiateGame extends AppCompatActivity {
     //Saving all variables to Shared Prefs
     public void save() {
 
-        saveLoadClass.health(health,true);
-        saveLoadClass.stamina(stamina,true);
-        saveLoadClass.numStam(numStaminaChonk,true);
-        saveLoadClass.numHeal(numHealthPacks,true);
-        saveLoadClass.pp(pp, true);
-        saveLoadClass.counter(counter,true);
-        saveLoadClass.level(level,true);
-        saveLoadClass.coins(coins,true);
-        saveLoadClass.levelTracker(levelTracker,true);
-        saveLoadClass.enemy(enemy,true);
-        saveLoadClass.enemyHealth(enemyHealth,true);
-        saveLoadClass.initHealth(initHealth, true);
-        saveLoadClass.tier(tier,true);
-        saveLoadClass.weapon(weapon,true);
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        saveLoadClass slc = new saveLoadClass(sharedPref);
+
+        slc.health(health,true);
+        slc.stamina(stamina,true);
+        slc.numStam(numStaminaChonk,true);
+        slc.numHeal(numHealthPacks,true);
+        slc.pp(pp, true);
+        slc.counter(counter,true);
+        slc.level(level,true);
+        slc.coins(coins,true);
+        slc.levelTracker(levelTracker,true);
+        slc.enemy(enemy,true);
+        slc.enemyHealth(enemyHealth,true);
+        slc.initHealth(initHealth, true);
+        slc.tier(tier,true);
+        slc.weapon(weapon,true);
 
     }
 
     //Loading all values from shared prefs
     public void load() {
 
-        saveLoadClass.health(health,false);
-        saveLoadClass.stamina(stamina,false);
-        saveLoadClass.numStam(numStaminaChonk,false);
-        saveLoadClass.numHeal(numHealthPacks,false);
-        saveLoadClass.pp(pp, false);
-        saveLoadClass.counter(counter,false);
-        saveLoadClass.level(level,false);
-        saveLoadClass.coins(coins,false);
-        saveLoadClass.levelTracker(levelTracker,false);
-        saveLoadClass.enemy(enemy,false);
-        saveLoadClass.enemyHealth(enemyHealth,false);
-        saveLoadClass.initHealth(initHealth, false);
-        saveLoadClass.tier(tier,false);
-        saveLoadClass.weapon(weapon,false);
+        SharedPreferences sharedPref = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        saveLoadClass slc = new saveLoadClass(sharedPref);
+
+        health = slc.health(health,false);
+        stamina = slc.stamina(stamina,false);
+        numStaminaChonk = slc.numStam(numStaminaChonk,false);
+        numHealthPacks = slc.numHeal(numHealthPacks,false);
+        pp = slc.pp(pp, false);
+        counter = slc.counter(counter,false);
+        level = slc.level(level,false);
+        coins = slc.coins(coins,false);
+        levelTracker = slc.levelTracker(levelTracker,false);
+        enemy = slc.enemy(enemy,false);
+        enemyHealth = slc.enemyHealth(enemyHealth,false);
+        initHealth = slc.initHealth(initHealth, false);
+        tier = slc.tier(tier,false);
+        weapon = slc.weapon(weapon,false);
 
     }
 

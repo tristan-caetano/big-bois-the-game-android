@@ -1,5 +1,7 @@
 package com.example.bigboisthegame;
 
+import android.content.SharedPreferences;
+
 import java.util.Random;
 
 public class axeClass {
@@ -9,6 +11,7 @@ public class axeClass {
     }
 
     int getDamage(int tier, int level, int weaponType){
+
 
         switch (weaponType){
             case 1: return base(tier, level);
@@ -35,6 +38,14 @@ public class axeClass {
 
         return damageDealt;
 
+    }
+
+    int getType(SharedPreferences sp){
+        int weaponType = 0;
+        saveLoadClass slc = new saveLoadClass(sp);
+        weaponType = slc.axeType(weaponType, false);
+
+        return weaponType;
     }
 
 }

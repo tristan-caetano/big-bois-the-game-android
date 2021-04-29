@@ -27,7 +27,7 @@ public class leaveWin extends AppCompatActivity {
 
         sharedPref.edit().remove("enemy").commit();
 
-        Button returnB = (Button) findViewById(R.id.returnButton);
+        Button returnB = (Button) findViewById(R.id.returnButtonMM);
         returnB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

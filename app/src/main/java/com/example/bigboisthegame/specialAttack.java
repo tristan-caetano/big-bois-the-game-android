@@ -55,7 +55,7 @@ public class specialAttack extends AppCompatActivity {
         Button pp4SB = (Button) findViewById(R.id.pp4StaminaButton);
         Button cronchB = (Button) findViewById(R.id.cronchyButton);
         Button leaveB = (Button) findViewById(R.id.leaveButton);
-        Button returnB = (Button) findViewById(R.id.returnButton);
+        Button returnB = (Button) findViewById(R.id.returnButtonMM);
 
         TextView healthT = (TextView) findViewById(R.id.currentHealth3);
         TextView staminaT = (TextView) findViewById(R.id.currentStamina3);
