@@ -13,7 +13,7 @@ public class fistClass {
     int getDamage(int tier, int level, int weaponType){
 
         switch (weaponType){
-            case 0: return base(tier, level);
+            case 1: return base(tier, level);
             default: return -1;
         }
     }

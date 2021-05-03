@@ -119,7 +119,7 @@
     <Button
         android:id="@+id/battleButton"
         android:layout_width="190dp"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:background="#FFFFFF"
         android:fontFamily="sans-serif-thin"
         android:text="Battle"
@@ -127,15 +127,15 @@
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.598" />
+        app:layout_constraintVertical_bias="0.668" />
 
     <Button
         android:id="@+id/settingsButton"
         android:layout_width="190dp"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:background="#FFFFFF"
         android:fontFamily="sans-serif-thin"
         android:text="Settings"
@@ -143,15 +143,15 @@
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869" />
+        app:layout_constraintVertical_bias="0.827" />
 
     <Button
         android:id="@+id/shopButton"
         android:layout_width="190dp"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:background="#FFFFFF"
         android:fontFamily="sans-serif-thin"
         android:text="Shop"
@@ -162,14 +162,14 @@
         app:layout_constraintHorizontal_bias="0.941"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.598" />
+        app:layout_constraintVertical_bias="0.668" />
 
     <Button
         android:id="@+id/InventoryButton2"
         android:layout_width="190dp"
-        android:layout_height="150dp"
-        android:background="#FFFFFF"
+        android:layout_height="100dp"
         android:fontFamily="sans-serif-thin"
+        android:foreground="@drawable/inventory_icon"
         android:text="Inventory"
         android:textColor="#322C2C"
         android:textSize="35sp"
@@ -178,6 +178,6 @@
         app:layout_constraintHorizontal_bias="0.941"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.869" />
+        app:layout_constraintVertical_bias="0.827" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

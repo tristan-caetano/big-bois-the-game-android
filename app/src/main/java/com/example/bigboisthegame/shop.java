@@ -47,6 +47,8 @@ public class shop extends AppCompatActivity {
 
         load();
 
+        coins += 1000;
+
         invT.setText("Health Packs: " + Integer.toString(numHealthPacks) + "\nStamina Chonks: " + Integer.toString(numStaminaChonk) + "\nPP: " + Integer.toString(pp) + "\nCoin Bois: " + Integer.toString(coins));
         shopT.setText("Welcome to the shop, you can buy things here.");
 
@@ -143,7 +145,6 @@ public class shop extends AppCompatActivity {
             }
 
     });
-
 
             buyShield.setOnClickListener(new View.OnClickListener() {
                 @Override
