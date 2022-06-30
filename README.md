@@ -25,7 +25,7 @@ For this project specifically I started with Eclipse, I eventually moved over to
 I genuinley have no idea. I enjoy coding and I would like to think that I will work on many personal projects, it really depends on how I feel.
 
 ## How do I play the game?
-You should be able to download it onto any android device, I personally tested it on a Razer Phone 2 and a Pixel 4 XL. You can then select the APK in the downloads folder and install the game, then you can play the game as if you downloaded it from the play store. I have also tested the game on an Oculus Quest 2, although I wouldn't reccommend it because the formatting is weird for it, unless its the only Android device you have and you really want to play this game for some reason. 
+You will need to clone the repo and create a build in Android Studio to acquire an APK, from there you can move the APK to any android device and install it using the package manager. This game has been tested thoroughly on Razer Phone 2, Pixel 4 XL, Pixel 6 and Pro. I have also had multiple testers install the game on their phone and there were no issues other than some minor formatting problems. However, there is nothing that affects the usability of the app.
 
 ## Is there a full update log for the game?
 Not for the android version, the update log for the android version currently only has its comparisons to the desktop version. However, the desktop version does have a full update log. The android version was made to copy almost all of the functions that are in the desktop version, except for the outlined differences, so I felt that an update log that just reiterates everything that is added feels a bit redundant.
